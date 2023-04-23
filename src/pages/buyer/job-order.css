@@ -1,0 +1,101 @@
+.container-job-order {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+}
+
+.header-job-order {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.header-job-order h3 {
+  font-size: 2em;
+  margin-bottom: 5px;
+}
+*/ .header-job-order p {
+  font-size: 1.2em;
+  color: #333;
+}
+
+.job-order-card {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.job-order-form {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.job-order-user {
+  flex-basis: 100%;
+  margin-bottom: 20px;
+}
+
+.job-order-user-header {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.job-order-name,
+.job-order-contact {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.job-order-fl,
+.job-order-ep {
+  flex-basis: 45%;
+}
+
+.job-order-address {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.job-order-pss {
+  flex-basis: 30%;
+}
+
+.order-state {
+  flex-basis: 60%;
+}
+
+.job-order-job {
+  flex-basis: 100%;
+  margin-bottom: 20px;
+}
+
+.job-order-job-header {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.job-order-tybu {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.job-order-tb {
+  flex-basis: 45%;
+}
+
+.job-order-d,
+.job-order-i {
+  margin-bottom: 10px;
+}
+
+.job-order-d textarea,
+.job-order-i input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1em;
+  resize: none;
+}

@@ -1,0 +1,58 @@
+.body-login {
+  background-image: url("../../assests/images/login.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  position: relative;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.title-login {
+  font-weight: bolder !important;
+  color: rgb(195, 129, 129);
+  text-align: center;
+  font-size: 2.8rem;
+}
+
+.form-group-login {
+  margin-top: 20px;
+}
+.form-control-login {
+  background: transparent !important;
+  /* color: white !important; */
+  border-radius: 40px !important;
+  border: rosybrown solid 1px;
+  line-height: 35px !important;
+  width: 100%;
+
+  font-size: 1rem;
+}
+.form-control-login:focus {
+  outline: none;
+}
+#log {
+  width: 103%;
+  line-height: 190%;
+  background-color: rgb(195, 129, 129);
+  border-radius: 40px !important;
+  border: 0;
+  color: white;
+}
+.form-control-login::-webkit-input-placeholder {
+  opacity: 1 !important;
+  color: white !important;
+}
+.container-fluid-login {
+  position: relative;
+  padding-top: 6%;
+  display: flex !important;
+  /* color: white !important; */
+  justify-content: center !important;
+}
+.d-md-flex-login {
+  display: flex;
+}
+.text-right label {
+  float: right;
+}

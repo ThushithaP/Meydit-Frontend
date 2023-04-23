@@ -1,0 +1,38 @@
+/* --filters-- */
+form {
+  margin-left: 2%;
+}
+.filters {
+  display: flex;
+}
+.filter {
+  margin-right: 5%;
+}
+/* --card-- */
+.card {
+  margin-left: 2%;
+  margin-right: 2%;
+}
+.header {
+  display: flex;
+}
+.view-Detail {
+  float: right;
+  margin-right: 5%;
+}
+.description {
+  width: 100% !important;
+}
+.head {
+  display: flex;
+
+  position: relative;
+  margin-left: 0;
+}
+.view-select {
+  float: left;
+  margin-right: 100px;
+}
+.view-img {
+  margin-right: 3%;
+}
