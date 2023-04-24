@@ -5,6 +5,7 @@ nav h1 {
   left: 5%;
   color: rgb(4, 4, 4);
   text-transform: uppercase;
+  font-size: 2rem;
 }
 nav ul {
   float: right;
@@ -77,4 +78,62 @@ label #s1,
   #res-menu:checked ~ label #s2 {
     display: block;
   }
+}
+
+/* body */
+.home-body {
+  position: relative;
+  /* background-color: aqua; */
+  margin-top: 5%;
+  height: 80vh;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  z-index: 1;
+  background: rgb(195, 129, 129);
+}
+.home-body::before {
+  /* clip-path: circle(80.5% at 62% 9%); */
+  clip-path: ellipse(41% 99% at 50% 42%);
+  background: white;
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  content: "";
+}
+.home-notice {
+  width: 30%;
+  margin-left: 2%;
+}
+.home-men {
+  /* border: 1px solid saddlebrown; */
+  width: 25%;
+}
+.home-women {
+  /* border: 1px solid green; */
+  width: 25%;
+  margin-right: 2%;
+}
+#man,
+#women {
+  width: 90%;
+  padding: 0;
+  align-items: center;
+  display: block;
+  border-radius: 5%;
+}
+
+.custom-body {
+  font-size: 1.2rem;
+}
+.custom-body p {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.custom-header h1 {
+  text-align: center;
+  color: rgb(195, 129, 129);
 }

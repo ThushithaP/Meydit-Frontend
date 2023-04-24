@@ -72,7 +72,7 @@
 }
 
 .profile-update-button button {
-  background-color: #4caf50;
+  background-color: #ad4caf;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -83,5 +83,5 @@
 }
 
 .profile-update-button button:hover {
-  background-color: #3e8e41;
+  background-color: #8b3e8e;
 }

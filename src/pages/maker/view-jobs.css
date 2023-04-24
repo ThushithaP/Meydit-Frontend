@@ -1,6 +1,7 @@
 /* --filters-- */
-form {
+.form-filter {
   margin-left: 2%;
+  margin-top: 3%;
 }
 .filters {
   display: flex;
@@ -10,8 +11,7 @@ form {
 }
 /* --card-- */
 .card {
-  margin-left: 2%;
-  margin-right: 2%;
+  margin: 2%;
 }
 .header {
   display: flex;
@@ -35,4 +35,20 @@ form {
 }
 .view-img {
   margin-right: 3%;
+}
+.container {
+  padding: 15px;
+}
+#fil,
+#non {
+  margin-bottom: 2%;
+  background-color: rgb(206, 255, 157);
+}
+.view-details {
+  background-color: rgb(252, 255, 179);
+  border: 0;
+  padding: 8px;
+}
+.view-details:hover {
+  cursor: pointer;
 }

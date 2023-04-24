@@ -8,6 +8,7 @@ import {
   MenuItem,
   Divider,
   ListItemIcon,
+  Button,
 } from "@mui/material";
 import {
   Logout,
@@ -15,6 +16,7 @@ import {
   AssignmentReturned as AssignmentReturnedIcon,
   Outbox as OutboxIcon,
 } from "@mui/icons-material";
+import IosShareIcon from "@mui/icons-material/IosShare";
 import "./navbar.css";
 import { useNavigate } from "react-router-dom";
 
@@ -53,6 +55,9 @@ export const NavBar = () => {
   const handleViewJob = () => {
     navigate("/maker/viewJob");
   };
+  const handleCreateJob = () => {
+    navigate("/buyer/jobOrder");
+  };
   return (
     <>
       <div className="nav">
@@ -73,7 +78,7 @@ export const NavBar = () => {
                 aria-haspopup="true"
                 aria-expanded={open ? "true" : undefined}
               >
-                <Avatar className="nav-icon" sx={{ width: 32, height: 32 }}>
+                <Avatar className="nav-icon" sx={{ width: 40, height: 40 }}>
                   {user.name[0]}
                 </Avatar>
               </IconButton>
@@ -86,18 +91,27 @@ export const NavBar = () => {
         <div className="nav-pag">
           {user.role === "Buyer" ? (
             <div className="buyer">
-              <button onClick={handleReceivedQuote}>Received Quotations</button>
-              <button onClick={handlePostedJob}>Posted Job</button>
+              <Button variant="outlined" onClick={handleReceivedQuote}>
+                Received Quotations
+              </Button>
+              <Button variant="outlined" onClick={handlePostedJob}>
+                Posted Job
+              </Button>
+              <Button variant="outlined" onClick={handleCreateJob}>
+                Create Job
+              </Button>
             </div>
           ) : (
             <div className="maker">
-              <button onClick={handleViewJob}>View Jobs</button>
-              <button onClick={handleSubmittedQuotation}>
+              <Button variant="outlined" onClick={handleViewJob}>
+                View Jobs
+              </Button>
+              <Button variant="outlined" onClick={handleSubmittedQuotation}>
                 Submitted Quotations
-              </button>
-              <button onClick={handleAcceptQuotation}>
+              </Button>
+              <Button variant="outlined" onClick={handleAcceptQuotation}>
                 Accepted Quotations
-              </button>
+              </Button>
             </div>
           )}
         </div>
@@ -139,9 +153,7 @@ export const NavBar = () => {
           <MenuItem onClick={handleProfile}>
             <Avatar /> Profile
           </MenuItem>
-          <MenuItem onClick={handleClose}>
-            <Avatar /> My account
-          </MenuItem>
+
           <Divider />
           {user.role === "Buyer"
             ? [
@@ -164,7 +176,7 @@ export const NavBar = () => {
                   onClick={handleSubmittedQuotation}
                 >
                   <ListItemIcon>
-                    <AssignmentReturnedIcon fontSize="small" />
+                    <IosShareIcon fontSize="small" />
                   </ListItemIcon>
                   Submitted Quotations
                 </MenuItem>,
@@ -179,12 +191,6 @@ export const NavBar = () => {
                 </MenuItem>,
               ]}
 
-          <MenuItem onClick={handleClose}>
-            <ListItemIcon>
-              <Settings fontSize="small" />
-            </ListItemIcon>
-            Settings
-          </MenuItem>
           <MenuItem onClick={handleLogOut}>
             <ListItemIcon>
               <Logout fontSize="small" />

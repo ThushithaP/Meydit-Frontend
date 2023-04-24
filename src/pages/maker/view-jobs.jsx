@@ -11,10 +11,14 @@ import {
   AppBar,
   Toolbar,
   IconButton,
-  Typography,
   Slide,
+  Card,
+  TextField,
+  MenuItem,
+  Select,
 } from "@mui/material";
 import "./view-jobs.css";
+import { FilterAlt } from "@mui/icons-material";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -57,48 +61,32 @@ export const Order = () => {
       image_5: job.image_5,
     }));
     setJobs(jobList);
-    jobList.forEach((job) => setSelectedJobId(job.id));
-
-    // console.log(selectedJobId);
-    // CountQuote();
   }
 
   async function CountQuote() {
     const jobId = selectedJobId;
-
+    console.log(jobId);
     const response = await QuoteCount(jobId);
     setQuoteCount(response);
-    console.log("count", response);
   }
 
   async function filter() {
     const jobs = await ViewJob();
+
+    if (!filterPostCode && !filterType && !filterState) {
+      // if no filters selected, return original array
+      return jobs;
+    }
+
     const fj = jobs.filter(
       (job) =>
-        job.postcode === filterPostCode ||
-        job.type === filterType ||
-        job.state === filterState
+        (!filterPostCode || job.postcode === filterPostCode) &&
+        (!filterType || job.type === filterType) &&
+        (!filterState || job.state === filterState)
     );
-
     setFilteredJobs(fj);
+    return fj;
   }
-  // async function filter() {
-  //   const jobs = await ViewJob();
-
-  //   if (!filterPostCode && !filterType && !filterState) {
-  //     // if no filters selected, return original array
-  //     return jobs;
-  //   }
-
-  //   const fj = jobs.filter(
-  //     (job) =>
-  //       (!filterPostCode || job.postcode === filterPostCode) &&
-  //       (!filterType || job.type === filterType) &&
-  //       (!filterState || job.state === filterState)
-  //   );
-  //   setFilteredJobs(fj);
-  //   return fj;
-  // }
 
   useEffect(() => {
     ViewOrder();
@@ -114,19 +102,18 @@ export const Order = () => {
   const handleOpenModal = (job) => {
     setSelectedJob(job);
     setSelectedJobId(job.id);
+    CountQuote();
     setSelectedJobName(job.name);
     setSelectedBuyerId(job.buyerId);
     setSelectedJobType(job.header || job.type);
-    CountQuote();
+
     setShowModal(true);
-    console.log(jobs);
   };
   useEffect(() => {
-    console.log(selectedJob); //  updated  selectedJob when it changes
+    //  updated  selectedJob when it changes
   }, [selectedJob]);
 
   const handleApply = () => {
-    console.log(selectedJob.image_1);
     navigate("/maker/sendQuote", {
       state: {
         JobId: selectedJobId,
@@ -135,6 +122,7 @@ export const Order = () => {
         JobType: selectedJobType,
       },
     });
+    console.log(selectedJobId);
   };
 
   return (
@@ -142,105 +130,118 @@ export const Order = () => {
       <NavBar></NavBar>
 
       {/* filter */}
-      <form>
+      <form className="form-filter">
         <div className="filters">
           <div className="filter">
-            <input
-              placeholder="type"
+            <TextField
+              label="Type"
               value={filterType}
               onChange={(e) => {
                 setFilterType(e.target.value);
               }}
+              size="small"
             />
           </div>
           <div className="filter">
-            <input
-              placeholder="postcode"
+            <TextField
+              label="Postcode"
               value={filterPostCode}
               onChange={(e) => {
                 setFilterPostCode(e.target.value);
               }}
+              size="small"
             />
           </div>
 
           <div className="filter">
-            {/* <input
-              placeholder="state"
-              onChange={(e) => {
-                setFilterState(e.target.value);
-              }}
-            /> */}
-            <select
-              className="view-state"
-              id=""
-              onChange={(event) => {
-                setFilterState(event.target.value);
-              }}
-              required
+            <Select
+              // style={{ minWidth: "100px", minHeight: "5px" }}
+              style={{ width: 120, height: 40 }}
+              labelId="state-label"
+              value={filterState}
+              onChange={(e) => setFilterState(e.target.value)}
             >
-              {" "}
-              <option value=""></option>
-              <option value="Western Australia">Western Australia</option>
-              <option value="South Australia">South Australia</option>
-              <option value="Northern Australia">Northern Australia</option>
-              <option value="Queensland">Queensland</option>
-              <option value="New South Wales">New South Wales</option>
-              <option value="Victoria">Victoria</option>
-              <option value="Tasmania">Tasmania</option>
-            </select>
+              <MenuItem value=""></MenuItem>
+              <MenuItem value="Western Australia">Western Australia</MenuItem>
+              <MenuItem value="South Australia">South Australia</MenuItem>
+              <MenuItem value="Northern Australia">Northern Australia</MenuItem>
+              <MenuItem value="Queensland">Queensland</MenuItem>
+              <MenuItem value="New South Wales">New South Wales</MenuItem>
+              <MenuItem value="Victoria">Victoria</MenuItem>
+              <MenuItem value="Tasmania">Tasmania</MenuItem>
+            </Select>
           </div>
         </div>
-        <div onClick={() => filter()}>Filter</div>
+        <br />
+
+        <Button
+          variant="contained"
+          startIcon={<FilterAlt />}
+          onClick={() => filter()}
+        >
+          Filter
+        </Button>
       </form>
       {/* // job card */}
 
       <div className="card">
         {filteredJobs.length > 0
           ? filteredJobs.map((job, index) => (
-              <div key={index} className="container">
-                <div className="header">
-                  <h3 className="view-Detail">{job.type.toUpperCase()}</h3>
-                  <h5 className="view-Detail">
-                    Date:{" " + job.created_at.slice(0, 10)}
-                  </h5>
-                  <h5 className="view-Detail">
-                    Time:{" " + job.created_at.slice(11, 16)}
-                  </h5>
-                  <h5 className="view-Detail">
-                    Budget:{" " + "$ " + job.budget}
-                  </h5>
-                </div>
-                <div className="description">
-                  <p>{job.description}...</p>
-                </div>
+              <Card key={index} id="fil">
+                {" "}
+                <div className="container">
+                  <div className="header">
+                    <h3 className="view-Detail">{job.type.toUpperCase()}</h3>
+                    <h5 className="view-Detail">
+                      Date:{" " + job.created_at.slice(0, 10)}
+                    </h5>
+                    <h5 className="view-Detail">
+                      Time:{" " + job.created_at.slice(11, 16)}
+                    </h5>
+                    <h5 className="view-Detail">Budget: ${" " + job.budget}</h5>
+                  </div>
+                  <Divider></Divider>
+                  <div className="description">
+                    <p>{job.description}...</p>
+                  </div>
 
-                <button className="" onClick={() => handleOpenModal(job)}>
-                  View Details
-                </button>
-              </div>
+                  <button
+                    className="view-details"
+                    onClick={() => handleOpenModal(job)}
+                  >
+                    View Details
+                  </button>
+                </div>
+              </Card>
             ))
           : jobs.map((job, index) => (
-              <div key={index} className="container">
-                <div className="header">
-                  <h3 className="view-Detail">{job.type.toUpperCase()}</h3>
-                  <h5 className="view-Detail">
-                    Date:{" " + job.date.slice(0, 10)}
-                  </h5>
-                  <h5 className="view-Detail">
-                    Time:{" " + job.date.slice(11, 16)}
-                  </h5>
-                  <h5 className="view-Detail">
-                    Budget:{" " + "$ " + job.budget}
-                  </h5>
-                </div>
-                <div className="description">
-                  <p>{job.description}...</p>
-                </div>
+              <Card key={index} id="non">
+                <div className="container">
+                  <div className="header">
+                    <h3 className="view-Detail">{job.type.toUpperCase()}</h3>
+                    <h5 className="view-Detail">
+                      Date:{" " + job.date.slice(0, 10)}
+                    </h5>
+                    <h5 className="view-Detail">
+                      Time:{" " + job.date.slice(11, 16)}
+                    </h5>
+                    <h5 className="view-Detail">
+                      Budget:{" " + "$ " + job.budget}
+                    </h5>
+                  </div>
+                  <Divider></Divider>
+                  <div className="description">
+                    <p>{job.description}...</p>
+                  </div>
 
-                <button className="" onClick={() => handleOpenModal(job)}>
-                  View Details
-                </button>
-              </div>
+                  <button
+                    className="view-details"
+                    onClick={() => handleOpenModal(job)}
+                  >
+                    View Details
+                  </button>
+                </div>
+              </Card>
             ))}
       </div>
 
@@ -263,9 +264,6 @@ export const Order = () => {
               >
                 <CloseIcon />
               </IconButton>
-              {/* <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-                Type:{"  " + selectedJob.header}
-              </Typography> */}
 
               <div className="head">
                 <h3 className="view-select">
@@ -301,11 +299,9 @@ export const Order = () => {
               <h5>State: {selectedJob.state}</h5>
             </div>
             <div className="view-job">
-              <h5>Budget: {selectedJob.budget}</h5>
-              <p>
-                <h5>Description</h5>
-                {selectedJob.description}
-              </p>
+              <h5>Budget: ${selectedJob.budget}</h5>
+              <h5>Description</h5>
+              <p>{selectedJob.description}</p>
               <img
                 width={200}
                 className="view-img"
