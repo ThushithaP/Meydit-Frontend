@@ -12,6 +12,12 @@ import {
   Typography,
   InputAdornment,
 } from "@mui/material";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 export const CreateJob = () => {
   const buyer = JSON.parse(localStorage.getItem("userInfo"));
@@ -33,6 +39,12 @@ export const CreateJob = () => {
   const [image_4, setImage_4] = useState("");
   const [image_5, setImage_5] = useState("");
 
+  // set boolean for snackbar
+  const [correct, setCorrect] = useState(false); // success snack
+  const [wrong, setWrong] = useState(false); // err snack
+
+  // field validation
+
   const [touched, setTouched] = useState({
     firstname: false,
     lastname: false,
@@ -49,38 +61,44 @@ export const CreateJob = () => {
   // submit
   const handleSubmit = async (event) => {
     const images = [image_1, image_2, image_3, image_4, image_5];
-    event.preventDefault();
 
-    if (
-      !buyerId ||
-      !firstname ||
-      !lastname ||
-      !phone_number ||
-      !email ||
-      !postcode ||
-      !street ||
-      !state ||
-      !type ||
-      !description ||
-      !budget ||
-      !images
-    ) {
-      console.log("null");
-    } else {
-      const response = await jobPosting(
-        buyerId,
-        firstname,
-        lastname,
-        phone_number,
-        email,
-        postcode,
-        street,
-        state,
-        type.toLocaleLowerCase(),
-        description,
-        budget,
-        images
-      );
+    try {
+      event.preventDefault();
+
+      if (
+        !buyerId ||
+        !firstname ||
+        !lastname ||
+        !phone_number ||
+        !email ||
+        !postcode ||
+        !street ||
+        !state ||
+        !type ||
+        !description ||
+        !budget ||
+        !images
+      ) {
+        setWrong(true);
+      } else {
+        const response = await jobPosting(
+          buyerId,
+          firstname,
+          lastname,
+          phone_number,
+          email,
+          postcode,
+          street,
+          state,
+          type.toLocaleLowerCase(),
+          description,
+          budget,
+          images
+        );
+        setCorrect(true);
+      }
+    } catch (err) {
+      setWrong(true);
     }
   };
 
@@ -349,6 +367,36 @@ export const CreateJob = () => {
           </form>
         </div>
       </div>
+
+      {/* snack bar */}
+      <Snackbar
+        open={correct}
+        autoHideDuration={3000}
+        onClose={() => setCorrect(false)}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert
+          onClose={() => setCorrect(false)}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
+          Succesfully Submitted Job order
+        </Alert>
+      </Snackbar>
+      <Snackbar
+        open={wrong}
+        autoHideDuration={3000}
+        onClose={() => setWrong(false)}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert
+          onClose={() => setWrong(false)}
+          severity="error"
+          sx={{ width: "100%" }}
+        >
+          Something went wrong. please try again!
+        </Alert>
+      </Snackbar>
     </>
   );
 };

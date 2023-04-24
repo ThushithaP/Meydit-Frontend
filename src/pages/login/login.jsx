@@ -9,8 +9,10 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 export const Login = () => {
+  // set value to snackbar
   const [correct, setCorrect] = useState(false);
   const [wrong, setWrong] = useState(false);
+  // set login value
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -32,9 +34,11 @@ export const Login = () => {
       if (userInfo.role === "Buyer") {
         setTimeout(() => {
           navigate("/buyer/jobOrder");
-        }, 3000);
+        }, 2000);
       } else if (userInfo.role === "Maker") {
-        navigate("/maker/viewJob");
+        setTimeout(() => {
+          navigate("/maker/viewJob");
+        }, 2000);
       }
     } catch (err) {
       setWrong(true);

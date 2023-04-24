@@ -26,25 +26,24 @@ export async function Quote(
       email: email,
     };
 
-    const response = await axios
-      .post(BaseUrl + "/sendQuote", qutationDetails)
-      .then((res) => {
-        return res.data;
-      });
+    await axios.post(BaseUrl + "/sendQuote", qutationDetails).then((res) => {
+      return res.data;
+    });
   } catch (err) {
     console.log(err);
+    throw err;
   }
 }
 
 // count quotation
 export async function QuoteCount(jobId) {
-  console.log(jobId);
   try {
     const response = await axios
       .get(BaseUrl + `/countQuote/${jobId}`)
       .then((res) => {
         return res.data;
       });
+    console.log(response);
     return response;
   } catch (err) {
     console.log(err);
@@ -110,6 +109,7 @@ export async function confirmQuote(confirm) {
     return response;
   } catch (err) {
     console.log(err);
+    throw err;
   }
 }
 

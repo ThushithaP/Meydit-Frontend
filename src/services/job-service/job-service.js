@@ -57,6 +57,7 @@ export async function jobPosting(
       .then((res) => {
         return res.data;
       });
+    return response;
   } catch (error) {
     console.log(error);
   }
@@ -103,8 +104,47 @@ export async function JobsById(jobId) {
 }
 
 //update jobs
-export async function JobUpdate(id) {
+export async function JobUpdate(
+  id,
+  firstName,
+  lastName,
+  phoneNumber,
+  email,
+  postcode,
+  street,
+  state,
+  type,
+  description,
+  budget
+) {
+  const jobData = {
+    id: id,
+    firstname: firstName,
+    lastname: lastName,
+    phone_number: phoneNumber,
+    email: email,
+    postcode: postcode,
+    street: street,
+    state: state,
+    type: type,
+    description: description,
+    budget: budget,
+  };
   try {
-    const response = await axios.put(BaseUrl + `/updateJob/${id}`);
-  } catch (err) {}
+    await axios.put(BaseUrl + "/updateJob", jobData);
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+}
+
+export async function DeleteJob(id) {
+  try {
+    await axios.delete(BaseUrl + `/jobDelete/${id}`).then((res) => {
+      return res.data;
+    });
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
 }
