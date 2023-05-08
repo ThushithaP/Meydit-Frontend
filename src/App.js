@@ -12,6 +12,7 @@ import { PostedJobs } from "./pages/buyer/posted-job/posted-job";
 import { Submitted } from "./pages/maker/submitted-quote/submitted-quote";
 import { AcceptQuotations } from "./pages/maker/accept-quotes/accept-quotes";
 import { UserProfile } from "./components/user-profile/user-profile";
+import { Footer } from "./components/footer/footer";
 
 const App = () => {
   return (
@@ -30,6 +31,7 @@ const App = () => {
           <Route exact path="/quoteById" element={<Submitted />} />
           <Route exact path="/acceptQuotes" element={<AcceptQuotations />} />
           <Route exact path="/userDetails" element={<UserProfile />} />
+          <Route exact path="/footer" element={<Footer />} />
         </Routes>
       </Router>
     </>

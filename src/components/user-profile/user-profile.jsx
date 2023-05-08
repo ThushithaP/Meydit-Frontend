@@ -10,7 +10,6 @@ import {
   FormControl,
   IconButton,
   Input,
-  InputLabel,
   Typography,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
@@ -48,7 +47,7 @@ export const UserProfile = () => {
     setName(userDetails[0].name);
     setEmail(userDetails[0].email);
     setContactNumber(userDetails[0].contactNumber);
-    setRole(userDetails[0].contactNumber);
+    setRole(userDetails[0].role);
   }
 
   useEffect(() => {
@@ -72,7 +71,7 @@ export const UserProfile = () => {
   };
   async function handlePasswordChange() {
     if (confirmPassword === newPassword) {
-      const response = await UpdatePassword(id, oldPassword, newPassword);
+      await UpdatePassword(id, oldPassword, newPassword);
       setShowModal(false);
       localStorage.clear();
       navigte("/login");

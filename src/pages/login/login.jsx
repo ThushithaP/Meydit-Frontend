@@ -41,6 +41,7 @@ export const Login = () => {
         }, 2000);
       }
     } catch (err) {
+      console.log(err);
       setWrong(true);
     }
   };
