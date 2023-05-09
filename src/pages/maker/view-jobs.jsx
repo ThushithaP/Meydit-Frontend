@@ -63,13 +63,6 @@ export const Order = () => {
     setJobs(jobList);
   }
 
-  async function CountQuote() {
-    const jobId = selectedJobId;
-    console.log(jobId);
-    const response = await QuoteCount(jobId);
-    setQuoteCount(response);
-  }
-
   async function filter() {
     const jobs = await ViewJob();
 
@@ -99,16 +92,17 @@ export const Order = () => {
     setSelectedJob({});
   };
 
-  const handleOpenModal = (job) => {
+  async function handleOpenModal(job) {
     setSelectedJob(job);
     setSelectedJobId(job.id);
-    CountQuote();
     setSelectedJobName(job.name);
     setSelectedBuyerId(job.buyerId);
     setSelectedJobType(job.header || job.type);
-
+    // count quotation
+    const count = await QuoteCount(job.id);
+    setQuoteCount(count);
     setShowModal(true);
-  };
+  }
   useEffect(() => {
     //  updated  selectedJob when it changes
   }, [selectedJob]);
@@ -193,12 +187,12 @@ export const Order = () => {
                   <div className="header">
                     <h3 className="view-Detail">{job.type.toUpperCase()}</h3>
                     <h5 className="view-Detail">
-                      Date:{" " + job.created_at.slice(0, 10)}
+                      Date:{job.created_at.slice(0, 10)}
                     </h5>
                     <h5 className="view-Detail">
-                      Time:{" " + job.created_at.slice(11, 16)}
+                      Time:{job.created_at.slice(11, 16)}
                     </h5>
-                    <h5 className="view-Detail">Budget: ${" " + job.budget}</h5>
+                    <h5 className="view-Detail">Budget: ${job.budget}</h5>
                   </div>
                   <Divider></Divider>
                   <div className="description">
@@ -220,14 +214,12 @@ export const Order = () => {
                   <div className="header">
                     <h3 className="view-Detail">{job.type.toUpperCase()}</h3>
                     <h5 className="view-Detail">
-                      Date:{" " + job.date.slice(0, 10)}
+                      Date:{job.date.slice(0, 10)}
                     </h5>
                     <h5 className="view-Detail">
-                      Time:{" " + job.date.slice(11, 16)}
+                      Time:{job.date.slice(11, 16)}
                     </h5>
-                    <h5 className="view-Detail">
-                      Budget:{" " + "$ " + job.budget}
-                    </h5>
+                    <h5 className="view-Detail">Budget: ${job.budget}</h5>
                   </div>
                   <Divider></Divider>
                   <div className="description">

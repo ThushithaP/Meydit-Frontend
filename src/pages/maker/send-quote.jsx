@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Quote } from "../../services/quotation-service/quotation-service";
 import { Button, TextField, InputAdornment } from "@mui/material";
@@ -15,13 +15,13 @@ export const SendQuote = ({}) => {
   const email = maker.email;
   const { state } = useLocation();
   const { JobId, name, BuyerId, JobType } = state; //get client id and name from view-jobs
-  const [jobId, setJobId] = useState(JobId);
-  const [buyerId, setBuyerId] = useState(BuyerId);
-  const [jobType, setJobType] = useState(JobType);
+  const [jobId] = useState(JobId);
+  const [buyerId] = useState(BuyerId);
+  const [jobType] = useState(JobType);
   const [price, setPrice] = useState("");
   const [duration, setDuration] = useState("");
   const [coverLetter, setCoverLetter] = useState("");
-  const [makerId, setMakerId] = useState(maker.id);
+  const [makerId] = useState(maker.id);
 
   // set boolean for snackbar
   const [correct, setCorrect] = useState(false); // success snack

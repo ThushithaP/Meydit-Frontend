@@ -21,7 +21,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 export const CreateJob = () => {
   const buyer = JSON.parse(localStorage.getItem("userInfo"));
-  const [buyerId, setBuyerId] = useState(buyer.id);
+  const [buyerId] = useState(buyer.id);
 
   const [firstname, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
@@ -81,7 +81,7 @@ export const CreateJob = () => {
       ) {
         setWrong(true);
       } else {
-        const response = await jobPosting(
+        await jobPosting(
           buyerId,
           firstname,
           lastname,

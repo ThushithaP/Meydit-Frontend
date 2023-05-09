@@ -12,7 +12,6 @@ import {
 } from "@mui/material";
 import {
   Logout,
-  Settings,
   AssignmentReturned as AssignmentReturnedIcon,
   Outbox as OutboxIcon,
 } from "@mui/icons-material";

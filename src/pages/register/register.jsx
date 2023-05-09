@@ -46,13 +46,7 @@ export const Register = () => {
     try {
       event.preventDefault();
       if (password === confirmPassword) {
-        const response = await register(
-          name,
-          email,
-          password,
-          contactNumber,
-          role
-        );
+        await register(name, email, password, contactNumber, role);
         setCorrect(true);
         setTimeout(() => {
           navigte("/login");
